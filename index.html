@@ -1,85 +1,144 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kuleur - Cadres Design</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuleur - Cadres d'Art</title>
+<style>
+    body {
+        margin: 0;
+        font-family: "Helvetica Neue", Arial, sans-serif;
+        background-color: #f9f9f9;
+        color: #333;
+    }
+    header {
+        background: linear-gradient(135deg, #6c63ff, #8a82ff);
+        padding: 20px;
+        text-align: center;
+        color: white;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    header h1 {
+        margin: 0;
+        font-size: 2.5rem;
+        letter-spacing: 1px;
+    }
+    header p {
+        margin: 5px 0 0;
+        font-size: 1.2rem;
+    }
+    main {
+        max-width: 1200px;
+        margin: auto;
+        padding: 30px 15px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 25px;
+    }
+    .product {
+        background-color: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.2s ease;
+    }
+    .product:hover {
+        transform: translateY(-5px);
+    }
+    .product img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+    .product-info {
+        padding: 15px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .product-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #444;
+        text-align: center;
+    }
+    .buy-button {
+        background: #6c63ff;
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1rem;
+        text-align: center;
+        text-decoration: none;
+        transition: background 0.3s ease;
+    }
+    .buy-button:hover {
+        background: #554bdb;
+    }
+    footer {
+        text-align: center;
+        padding: 20px;
+        font-size: 0.9rem;
+        color: #666;
+    }
+</style>
 </head>
 <body>
-    <!-- HEADER -->
-    <header>
-        <div class="logo">🎨 Kuleur</div>
-        <nav>
-            <a href="#about">À propos</a>
-            <a href="#shop">Boutique</a>
-        </nav>
-    </header>
 
-    <!-- SECTION À PROPOS -->
-    <section id="about">
-        <div class="about-container">
-            <h1>Bienvenue chez <span>Kuleur</span></h1>
-            <p>Découvrez nos cadres élégants et uniques, au prix accessible de 10€ pièce.  
-            Apportez une touche de style à vos murs avec Kuleur.</p>
-        </div>
-    </section>
+<header>
+    <h1>Kuleur</h1>
+    <p>Cadres d'art uniques à seulement 10€</p>
+</header>
 
-    <!-- SECTION BOUTIQUE -->
-    <section id="shop">
-        <h2>Nos Cadres</h2>
-        <div id="products" class="products-grid"></div>
-    </section>
+<main id="product-list">
+    <!-- Les produits seront chargés ici -->
+</main>
 
-    <!-- FOOTER -->
-    <footer>
-        <p>© 2025 Kuleur - Tous droits réservés</p>
-    </footer>
+<footer>
+    © 2025 Kuleur - Tous droits réservés
+</footer>
 
-    <script>
-    // URL vers le fichier shop.txt sur GitHub Pages
-    const SHOP_FILE_URL = "shop.txt";
-
-    async function loadProducts() {
-        const response = await fetch(SHOP_FILE_URL);
-        const text = await response.text();
+<script>
+fetch('shop.txt')
+    .then(response => response.text())
+    .then(data => {
         const products = [];
-        let current = {};
+        const rawItems = data.split(/\n\s*\n/); // Sépare chaque bloc par ligne vide
+        rawItems.forEach(item => {
+            const imageMatch = item.match(/image-link:\s*(.+)/);
+            const stripeMatch = item.match(/stripe-link:\s*(.+)/);
+            const titleMatch = item.match(/titre\s*:\s*(.+)/i);
 
-        text.split("\n").forEach(line => {
-            line = line.trim();
-            if (line.startsWith("image-link:")) {
-                current.image = line.replace("image-link:", "").trim();
-            } else if (line.startsWith("stripe-link:")) {
-                current.stripe = line.replace("stripe-link:", "").trim();
-            } else if (line.startsWith("titre :")) {
-                current.title = line.replace("titre :", "").trim();
-            } else if (line === "" && Object.keys(current).length) {
-                products.push(current);
-                current = {};
+            if (imageMatch && stripeMatch && titleMatch) {
+                products.push({
+                    image: imageMatch[1].trim(),
+                    stripe: stripeMatch[1].trim(),
+                    title: titleMatch[1].trim()
+                });
             }
         });
-        if (Object.keys(current).length) products.push(current);
 
-        displayProducts(products);
-    }
-
-    function displayProducts(products) {
-        const container = document.getElementById("products");
-        products.forEach(p => {
-            const card = document.createElement("div");
-            card.className = "product-card";
+        const container = document.getElementById('product-list');
+        products.forEach(product => {
+            const card = document.createElement('div');
+            card.className = 'product';
             card.innerHTML = `
-                <img src="${p.image}" alt="${p.title}">
-                <h3>${p.title}</h3>
-                <p class="price">10 €</p>
-                <a class="buy-btn" href="${p.stripe}" target="_blank">Acheter</a>
+                <img src="${product.image}" alt="${product.title}">
+                <div class="product-info">
+                    <div class="product-title">${product.title}</div>
+                    <a class="buy-button" href="${product.stripe}" target="_blank">Acheter - 10€</a>
+                </div>
             `;
             container.appendChild(card);
         });
-    }
+    });
+</script>
 
-    loadProducts();
-    </script>
 </body>
 </html>
