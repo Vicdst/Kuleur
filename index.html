@@ -1,143 +1,222 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kuleur - Cadres d'Art</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kuleur – Cadres élégants et design</title>
 <style>
-    body {
-        margin: 0;
-        font-family: "Helvetica Neue", Arial, sans-serif;
-        background-color: #f9f9f9;
-        color: #333;
-    }
-    header {
-        background: linear-gradient(135deg, #6c63ff, #8a82ff);
-        padding: 20px;
-        text-align: center;
-        color: white;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    }
+  /* Reset léger */
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: #faf8f5;
+    color: #1a1a1a;
+    line-height: 1.6;
+  }
+
+  header {
+    background: #111; /* très sombre */
+    color: #d4af37; /* doré luxe */
+    text-align: center;
+    padding: 40px 20px 60px;
+    letter-spacing: 2px;
+  }
+
+  header h1 {
+    font-weight: 300;
+    font-size: 3.2rem;
+    margin: 0;
+  }
+
+  header p {
+    font-weight: 300;
+    font-size: 1.3rem;
+    margin-top: 12px;
+    font-style: italic;
+  }
+
+  main {
+    max-width: 1100px;
+    margin: auto;
+    padding: 40px 20px 80px;
+  }
+
+  /* Section description luxe */
+  .description {
+    max-width: 700px;
+    margin: 0 auto 60px auto;
+    font-weight: 300;
+    font-size: 1.15rem;
+    color: #333;
+    border-left: 4px solid #d4af37;
+    padding-left: 20px;
+  }
+
+  /* Boutique */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
+    gap: 48px;
+  }
+
+  .product {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.07);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+  }
+  .product:hover {
+    transform: translateY(-8px);
+  }
+
+  .product img {
+    width: 100%;
+    aspect-ratio: 595 / 842;
+    object-fit: contain;
+    background: #fefefe;
+  }
+
+  .product-info {
+    padding: 25px 25px 35px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .product h2 {
+    font-weight: 400;
+    font-size: 1.3rem;
+    margin: 0 0 22px;
+    color: #111;
+  }
+
+  .buy-button {
+    background: #d4af37;
+    color: #111;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 14px 0;
+    border-radius: 6px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .buy-button:hover {
+    background: #b8932d;
+  }
+
+  footer {
+    text-align: center;
+    padding: 24px 12px;
+    font-size: 0.9rem;
+    color: #666;
+    border-top: 1px solid #ddd;
+    background: #fff;
+  }
+
+  /* Responsive */
+  @media (max-width: 480px) {
     header h1 {
-        margin: 0;
-        font-size: 2.5rem;
-        letter-spacing: 1px;
+      font-size: 2.4rem;
     }
-    header p {
-        margin: 5px 0 0;
-        font-size: 1.2rem;
+    .description {
+      font-size: 1rem;
+      max-width: 90%;
+      margin-bottom: 40px;
+      padding-left: 15px;
     }
-    main {
-        max-width: 1200px;
-        margin: auto;
-        padding: 30px 15px;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 25px;
+    .product-grid {
+      gap: 28px;
     }
-    .product {
-        background-color: white;
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-        display: flex;
-        flex-direction: column;
-        transition: transform 0.2s ease;
-    }
-    .product:hover {
-        transform: translateY(-5px);
-    }
-    .product img {
-        width: 100%;
-        height: auto;
-        display: block;
-    }
-    .product-info {
-        padding: 15px;
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-    .product-title {
-        font-size: 1.2rem;
-        font-weight: bold;
-        margin-bottom: 10px;
-        color: #444;
-        text-align: center;
-    }
-    .buy-button {
-        background: #6c63ff;
-        color: white;
-        border: none;
-        padding: 10px;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 1rem;
-        text-align: center;
-        text-decoration: none;
-        transition: background 0.3s ease;
-    }
-    .buy-button:hover {
-        background: #554bdb;
-    }
-    footer {
-        text-align: center;
-        padding: 20px;
-        font-size: 0.9rem;
-        color: #666;
-    }
+  }
 </style>
 </head>
 <body>
 
 <header>
-    <h1>Kuleur</h1>
-    <p>Cadres d'art uniques à seulement 10€</p>
+  <h1>Kuleur</h1>
+  <p>Cadres élégants et design – Luxe accessible à 10€ l’unité</p>
 </header>
 
-<main id="product-list">
-    <!-- Les produits seront chargés ici -->
+<main>
+  <section class="description">
+    <p>
+      Kuleur est une start-up française dédiée à la création et la vente de cadres uniques, alliant
+      élégance et sobriété. Notre mission est de proposer un produit haut de gamme à un prix accessible,
+      mettant en valeur chaque œuvre avec un design raffiné. Découvrez nos cadres, parfaits pour sublimer
+      vos intérieurs avec simplicité et luxe discret.
+    </p>
+  </section>
+
+  <section class="product-grid" id="product-list">
+    <!-- Les produits chargés ici -->
+  </section>
 </main>
 
 <footer>
-    © 2025 Kuleur - Tous droits réservés
+  © 2025 Kuleur – Tous droits réservés
 </footer>
 
 <script>
-fetch('shop.txt')
-    .then(response => response.text())
-    .then(data => {
-        const products = [];
-        const rawItems = data.split(/\n\s*\n/); // Sépare chaque bloc par ligne vide
-        rawItems.forEach(item => {
-            const imageMatch = item.match(/image-link:\s*(.+)/);
-            const stripeMatch = item.match(/stripe-link:\s*(.+)/);
-            const titleMatch = item.match(/titre\s*:\s*(.+)/i);
+  async function loadProducts() {
+    try {
+      const response = await fetch('shop.txt');
+      if(!response.ok) throw new Error('Impossible de charger shop.txt');
+      const text = await response.text();
 
-            if (imageMatch && stripeMatch && titleMatch) {
-                products.push({
-                    image: imageMatch[1].trim(),
-                    stripe: stripeMatch[1].trim(),
-                    title: titleMatch[1].trim()
-                });
-            }
-        });
+      const products = [];
+      // Séparer les produits par double saut de ligne
+      const items = text.trim().split(/\n\s*\n/);
 
-        const container = document.getElementById('product-list');
-        products.forEach(product => {
-            const card = document.createElement('div');
-            card.className = 'product';
-            card.innerHTML = `
-                <img src="${product.image}" alt="${product.title}">
-                <div class="product-info">
-                    <div class="product-title">${product.title}</div>
-                    <a class="buy-button" href="${product.stripe}" target="_blank">Acheter - 10€</a>
-                </div>
-            `;
-            container.appendChild(card);
-        });
-    });
+      items.forEach(item => {
+        const imageMatch = item.match(/image-link:\s*(.*)/i);
+        const stripeMatch = item.match(/stripe-link:\s*(.*)/i);
+        const titleMatch = item.match(/titre\s*:\s*(.*)/i);
+
+        if (imageMatch && stripeMatch && titleMatch) {
+          products.push({
+            image: imageMatch[1].trim(),
+            stripe: stripeMatch[1].trim(),
+            title: titleMatch[1].trim()
+          });
+        }
+      });
+
+      const container = document.getElementById('product-list');
+      if(products.length === 0) {
+        container.innerHTML = '<p style="text-align:center; color:#777;">Aucun produit disponible pour le moment.</p>';
+        return;
+      }
+
+      products.forEach(product => {
+        container.innerHTML += `
+          <article class="product">
+            <img src="${product.image}" alt="${product.title}">
+            <div class="product-info">
+              <h2>${product.title}</h2>
+              <a class="buy-button" href="${product.stripe}" target="_blank" rel="noopener noreferrer" aria-label="Acheter ${product.title}">Acheter</a>
+            </div>
+          </article>
+        `;
+      });
+
+    } catch (e) {
+      console.error(e);
+      const container = document.getElementById('product-list');
+      container.innerHTML = '<p style="text-align:center; color:#a00;">Erreur lors du chargement des produits.</p>';
+    }
+  }
+
+  loadProducts();
 </script>
 
 </body>
